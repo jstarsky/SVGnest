@@ -2,8 +2,11 @@
  * SvgNest
  * Licensed under the MIT license
  */
+import SvgParser from "./svgparser";
 
 function SvgNest() {
+  var svgParser = new SvgParser();
+
   var self = this;
 
   var svg = null;
@@ -46,11 +49,11 @@ function SvgNest() {
     tree = null;
 
     // parse svg
-    svg = SvgParser.load(svgstring);
+    svg = svgParser.load(svgstring);
 
-    this.style = SvgParser.getStyle();
+    this.style = svgParser.getStyle();
 
-    svg = SvgParser.clean();
+    svg = svgParser.clean();
 
     tree = this.getParts(svg.childNodes);
 
@@ -113,7 +116,7 @@ function SvgNest() {
       config.exploreConcave = !!c.exploreConcave;
     }
 
-    SvgParser.config({ tolerance: config.curveTolerance });
+    svgParser.config({ tolerance: config.curveTolerance });
 
     best = null;
     nfpCache = {};
@@ -161,7 +164,7 @@ function SvgNest() {
       }
     }
 
-    binPolygon = SvgParser.polygonify(bin);
+    binPolygon = svgParser.polygonify(bin);
     binPolygon = this.cleanPolygon(binPolygon);
 
     if (!binPolygon || binPolygon.length < 3) {
@@ -656,7 +659,7 @@ function SvgNest() {
 
     var numChildren = paths.length;
     for (i = 0; i < numChildren; i++) {
-      var poly = SvgParser.polygonify(paths[i]);
+      var poly = svgParser.polygonify(paths[i]);
       poly = this.cleanPolygon(poly);
 
       // todo: warn user if poly could not be processed and is excluded from the nest
