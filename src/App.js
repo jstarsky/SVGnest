@@ -1,14 +1,2 @@
-import "./style.css";
-import "./util";
-// import "./svgparser.js";
-// import "./svgnest.js";
-// import "./util/pathsegpolyfill.js";
-// import "./util/matrix.js";
-// import "./util/domparser.js";
-// import "./util/clipper.js";
-// import "./util/parallel.js";
-// import "./util/geometryutil.js";
-// import "./util/placementworker.js";
-// import "./svgparser.js";
-// import "./svgnest.js";
+import "./style.css";;
 document.getElementById("app");
