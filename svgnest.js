@@ -2,7 +2,10 @@
  * SvgNest
  * Licensed under the MIT license
  */
+import './util/placementworker'
+import './util/parallel'
 import SvgParser from "./svgparser";
+import ClipperLib from './util/clipper'
 
 function SvgNest() {
   var svgParser = new SvgParser();
@@ -53,7 +56,7 @@ function SvgNest() {
 
     this.style = svgParser.getStyle();
 
-    svg = svgParser.clean();
+    svg = svgParser.cleanInput();
 
     tree = this.getParts(svg.childNodes);
 
@@ -69,6 +72,32 @@ function SvgNest() {
     }
 
     return svg;
+  };
+
+  this.parsebin = function (svgstring) {
+    // reset if in progress
+    this.stop();
+
+    bin = null;
+    binPolygon = null;
+    tree = null;
+
+    // parse svg
+    bin = svgParser.load(svgstring);
+
+    this.style = svgParser.getStyle();
+
+    bin = svgParser.cleanInput();
+
+    for (var i = 0; i < bin.childNodes.length; i++) {
+      // svg document may start with comments or text nodes
+      var child = bin.childNodes[i];
+      if (child.tagName && child.tagName == "path") {
+        bin = child;
+        break;
+      }
+    }
+    return bin;
   };
 
   this.setbin = function (element) {

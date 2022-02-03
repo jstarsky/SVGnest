@@ -4,6 +4,10 @@
  * Licensed under the MIT license
  */
 
+import 'pathseg'
+import './util/matrix'
+import './util/geometryutil'
+
 function SvgParser() {
   // the SVG document
   this.svg;
